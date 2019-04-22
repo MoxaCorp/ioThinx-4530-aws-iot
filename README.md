@@ -3,15 +3,17 @@
 
 # AWS-IOT-SDK-CPP
 
-> **Description:**
+> **Table of Contents**
 >
-> Cloud: Create device instance for connecting by SDK program
+> [Cloud: Create device instance for connecting by SDK program](#cloud-aws)
 >
-> Host: Cross-compiling the SDK
+> [Host: Cross-compiling the SDK](#host-x86_64-linux)
 >
-> Target: Executing the SDK program
+> [Target: Executing the SDK program](#target-arm-linux)
 
 ## Cloud (AWS)
+
+> Create device instance for connecting by SDK program
 
 ### Sign in to Cloud
 
@@ -56,6 +58,8 @@
     ![create_policy_04][create_policy_04]
 
 ### Create Certificate
+
+> You will need this infomation in the section [Build the SDK](#build-the-sdk)
 
 1. In the left navigation pane, expand **Secure** and then choose **Certificates**. On the page that says **You don't have any certificates yet**, choose **Create a certificate**.
 
@@ -104,11 +108,17 @@
 
 ### Copy Device Endpoint
 
+> **Device Endpoint** is the key to build connection between physical and virtual device on cloud
+>
+> You will need this infomation in the section [Build the SDK](#build-the-sdk)
+
 * In the left navigation pane, choose **Settings**. On the **Custom endpoint** item, you can found the **Endpoint** that allows you to connect to AWS IoT.
 
     ![copy_device_endpoint][copy_device_endpoint]
 
 ### View Device Messages
+
+> You can view the following device messages after section [Execute the SDK](#execute-the-sdk)
 
 1. In the left navigation pane, choose **Test**. On the **Subscribe** item, fill in the necessary information then choose **Subscribe to topic**.
 
@@ -120,6 +130,8 @@
     ![view_device_messages_03][view_device_messages_03]
 
 ## Host (x86_64-linux)
+
+> Cross-compiling the SDK
 
 ### Setup the Environment
 
@@ -135,15 +147,24 @@
 
 ### Build the SDK
 
-1. Setup dependencies and SDK to output directory.
+1. Clone repository of MOXA cloud connectivity tool from github.
 
     ```
-    $ ./setup.sh
+    user@Linux:~$ git clone https://github.com/MoxaCorp/ioThinx-4530-aws-iot.git
+    ```
+
+2. Setup dependencies and SDK to output directory.
+
+    ```
+    user@Linux:~$ cd aws
+    ```
+    ```
+    user@Linux:~/aws$ ./setup.sh
     ```
     * For more setup.sh options.
 
     ```
-    $ ./setup.sh --help
+    user@Linux:~/aws$ ./setup.sh --help
 
     Usage: ./setup.sh [options]
 
@@ -165,20 +186,20 @@
                             ./setup.sh --toolchain /usr/local/arm-linux-gnueabihf
     ```
 
-2. Copy the **certificate**, **private key**, and the **root CA** that downloaded from the cloud to the following directory. [[Download Certificate](#create-certificate)]
+3. Copy the **certificate**, **private key**, and the **root CA** that downloaded from the cloud to the following directory. [[Download Certificate](#create-certificate)]
 
     ```
-    $ tree output/sdk_aws/certs
+    user@Linux:~/aws$ tree output/sdk_aws/certs
     output/sdk_aws/certs
     ├── abd17825b2-certificate.pem.crt
     ├── abd17825b2-private.pem.key
     └── AmazonRootCA1.pem
     ```
 
-3. Add the **endpoint** and the path of **certificate**, **private key**, and the **root CA** to **SampleConfig.json** file. [[Copy Device Endpoint](#copy-device-endpoint)]
+4. Add the **endpoint** and the path of **certificate**, **private key**, and the **root CA** to **SampleConfig.json** file. [[Copy Device Endpoint](#copy-device-endpoint)]
 
     ```
-    $ vim output/sdk_aws/common/SampleConfig.json
+    user@Linux:~/aws$ vim output/sdk_aws/common/SampleConfig.json
     ```
     ```
     {
@@ -210,15 +231,15 @@
     }
     ```
 
-4. Build the whole SDK.
+5. Build the whole SDK.
 
     ```
-    $ ./build.sh
+    user@Linux:~/aws$ ./build.sh
     ```
     * All compiled SDK program can be found in the following directory, including example **pub-sub-sample**.
 
     ```
-    $ tree output/sdk_aws/build_cmake/bin
+    user@Linux:~/aws$ tree output/sdk_aws/build_cmake/bin
     output/sdk_aws/build_cmake/bin
     ├── aws-iot-integration-tests
     ├── aws-iot-unit-tests
@@ -238,7 +259,7 @@
 * You can also reference to the MOXA sample code with ioThinx I/O library **moxa_sample_mqtt.cpp** in the following directory.
 
     ```
-    $ tree sample
+    user@Linux:~/aws$ tree sample
     sample
     ├── binary
     │   ├── certs
@@ -263,6 +284,8 @@
 
 ## Target (arm-linux)
 
+> Executing the SDK program
+
 ### Setup the Environment
 
 1. Setup a network connection to allow target able to access the network.
@@ -276,7 +299,7 @@
 3. Copy compiled SDK program from host to target.
 
     ```
-    $ tree
+    moxa@Moxa:~$ tree
     .
     ├── certs
     │   ├── abd17825b2-certificate.pem.crt
@@ -292,9 +315,8 @@
 1. Execute SDK program that cross-compiled by host.
 
     ```
-    $ sudo ./pub-sub-sample
+    moxa@Moxa:~$ sudo ./pub-sub-sample
     ```
-    * You need to install the dependency library for the SDK program if any not found.
 
 2. [View device messages on cloud](#view-device-messages).
 

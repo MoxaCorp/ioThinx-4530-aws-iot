@@ -14,10 +14,8 @@ build_aws-iot-sdk-cpp:
     script:
         - ./setup.sh
         - ./build.sh
-        - shopt -s extglob
-        - rm -rf sample/binary output upload
         - mkdir -p upload/aws-iot-sdk-cpp
-        - cp -r !(upload) upload/aws-iot-sdk-cpp
+        - cp -r readme README.md upload/aws-iot-sdk-cpp
         - scm upload $CI_COMMIT_REF_NAME
 
 release_aws-iot-sdk-cpp:
@@ -27,15 +25,13 @@ release_aws-iot-sdk-cpp:
     only:
         - tags
     variables:
-        REPOSITORY: "git@github.com:kbwilson89/aws-iot-sdk-cpp.git"
+        REPOSITORY: "git@github.com:MoxaCorp/ioThinx-4530-aws-iot.git"
         BRANCH: "master"
     script:
         - ./setup.sh
         - ./build.sh
-        - shopt -s extglob
-        - rm -rf sample/binary output upload
         - mkdir -p upload/aws-iot-sdk-cpp
-        - cp -r !(upload) upload/aws-iot-sdk-cpp
+        - cp -r readme README.md upload/aws-iot-sdk-cpp
         - scm upload $CI_COMMIT_REF_NAME
         - git checkout -B $BRANCH
         - git push $REPOSITORY $BRANCH --tags --force
