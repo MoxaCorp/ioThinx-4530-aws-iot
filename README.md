@@ -1,7 +1,7 @@
 <!-- Copyright (C) 2019 Moxa Inc. All rights reserved. -->
 <!-- SPDX-License-Identifier: Apache-2.0               -->
 
-# AWS-IOT-SDK-CPP
+# ioThinx-4530-aws-iot
 
 > **Table of Contents**
 >
@@ -156,15 +156,15 @@
 2. Setup dependencies and SDK to output directory.
 
     ```
-    user@Linux:~$ cd aws
+    user@Linux:~$ cd ioThinx-4530-aws-iot
     ```
     ```
-    user@Linux:~/aws$ ./setup.sh
+    user@Linux:~/ioThinx-4530-aws-iot$ ./setup.sh
     ```
     * For more setup.sh options.
 
     ```
-    user@Linux:~/aws$ ./setup.sh --help
+    user@Linux:~/ioThinx-4530-aws-iot$ ./setup.sh --help
 
     Usage: ./setup.sh [options]
 
@@ -189,7 +189,7 @@
 3. Copy the **certificate**, **private key**, and the **root CA** that downloaded from the cloud to the following directory. [[Download Certificate](#create-certificate)]
 
     ```
-    user@Linux:~/aws$ tree output/sdk_aws/certs
+    user@Linux:~/ioThinx-4530-aws-iot$ tree output/sdk_aws/certs
     output/sdk_aws/certs
     ├── abd17825b2-certificate.pem.crt
     ├── abd17825b2-private.pem.key
@@ -199,7 +199,7 @@
 4. Add the **endpoint** and the path of **certificate**, **private key**, and the **root CA** to **SampleConfig.json** file. [[Copy Device Endpoint](#copy-device-endpoint)]
 
     ```
-    user@Linux:~/aws$ vim output/sdk_aws/common/SampleConfig.json
+    user@Linux:~/ioThinx-4530-aws-iot$ vim output/sdk_aws/common/SampleConfig.json
     ```
     ```
     {
@@ -234,12 +234,12 @@
 5. Build the whole SDK.
 
     ```
-    user@Linux:~/aws$ ./build.sh
+    user@Linux:~/ioThinx-4530-aws-iot$ ./build.sh
     ```
     * All compiled SDK program can be found in the following directory, including example **pub-sub-sample**.
 
     ```
-    user@Linux:~/aws$ tree output/sdk_aws/build_cmake/bin
+    user@Linux:~/ioThinx-4530-aws-iot$ tree output/sdk_aws/build_cmake/bin
     output/sdk_aws/build_cmake/bin
     ├── aws-iot-integration-tests
     ├── aws-iot-unit-tests
@@ -256,10 +256,10 @@
     └── TestParser.json
     ```
 
-* You can also reference to the MOXA sample code with ioThinx I/O library **moxa_sample_mqtt.cpp** in the following directory.
+* You can also reference to the MOXA sample code with ioThinx I/O library **moxa_sample_mqtt.cpp** in the following directory. This sample code can be executed directly on the target device with module 45MR-2606 located in slot 1.
 
     ```
-    user@Linux:~/aws$ tree sample
+    user@Linux:~/ioThinx-4530-aws-iot$ tree sample
     sample
     ├── binary
     │   ├── certs
